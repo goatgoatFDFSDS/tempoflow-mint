@@ -19,7 +19,7 @@ const CollectionMetrics = () => {
           ["Minted", MINTED.toLocaleString()],
           ["Remaining", remaining.toLocaleString()],
           ["Price", "10 pathUSD"],
-          ["Max / Wallet", "10"],
+          
         ].map(([label, value]) => (
           <div key={label} className="flex justify-between">
             <span className="text-muted-foreground">{label}</span>
