@@ -1,4 +1,12 @@
+import { useWallet } from "@/contexts/WalletContext";
+
 const TemporisHeader = () => {
+  const { address, isConnecting, connect, disconnect } = useWallet();
+
+  const shortAddress = address
+    ? `${address.slice(0, 6)}...${address.slice(-4)}`
+    : null;
+
   return (
     <header className="flex items-center justify-between px-6 py-4 border-b border-border/30">
       <div>
@@ -20,9 +28,22 @@ const TemporisHeader = () => {
           <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
           <span className="text-foreground font-pixel text-[10px]">MINT LIVE</span>
         </div>
-        <button className="px-5 py-2 border border-primary/50 text-foreground text-sm font-display tracking-wider hover:bg-primary/10 hover:neon-glow transition-all duration-300 animate-pulse-glow">
-          CONNECT WALLET
-        </button>
+        {address ? (
+          <button
+            onClick={disconnect}
+            className="px-5 py-2 border border-primary/50 text-primary text-sm font-display tracking-wider hover:bg-primary/10 hover:neon-glow transition-all duration-300"
+          >
+            {shortAddress}
+          </button>
+        ) : (
+          <button
+            onClick={connect}
+            disabled={isConnecting}
+            className="px-5 py-2 border border-primary/50 text-foreground text-sm font-display tracking-wider hover:bg-primary/10 hover:neon-glow transition-all duration-300 animate-pulse-glow disabled:opacity-50"
+          >
+            {isConnecting ? "CONNECTING..." : "CONNECT WALLET"}
+          </button>
+        )}
       </div>
     </header>
   );

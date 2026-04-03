@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useWallet } from "@/contexts/WalletContext";
 
 const MintCard = () => {
   const [quantity, setQuantity] = useState(1);
   const pricePerMint = 10;
+  const { address, isConnecting, connect } = useWallet();
 
   return (
     <div className="border border-border neon-border bg-card/50 p-6 backdrop-blur-sm">
@@ -45,9 +47,19 @@ const MintCard = () => {
           </p>
         </div>
 
-        <button className="w-full py-3 bg-primary text-primary-foreground font-display text-sm tracking-wider neon-glow-strong hover:brightness-110 transition-all duration-300 animate-pulse-glow">
-          CONNECT WALLET TO MINT
-        </button>
+        {address ? (
+          <button className="w-full py-3 bg-primary text-primary-foreground font-display text-sm tracking-wider neon-glow-strong hover:brightness-110 transition-all duration-300">
+            MINT {quantity} TEMPORIS
+          </button>
+        ) : (
+          <button
+            onClick={connect}
+            disabled={isConnecting}
+            className="w-full py-3 bg-primary text-primary-foreground font-display text-sm tracking-wider neon-glow-strong hover:brightness-110 transition-all duration-300 animate-pulse-glow disabled:opacity-50"
+          >
+            {isConnecting ? "CONNECTING..." : "CONNECT WALLET TO MINT"}
+          </button>
+        )}
       </div>
     </div>
   );
