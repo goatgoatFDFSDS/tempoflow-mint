@@ -1,4 +1,4 @@
-const TOTAL_SUPPLY = 100_000_000;
+const TOTAL_SUPPLY = 50_000_000;
 const MINTED = 0;
 
 const CollectionMetrics = () => {
